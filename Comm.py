@@ -30,7 +30,7 @@ from tensorflow.python.ops import control_flow_ops
 
 kk=0
 l=1
-#########################################################################################
+
 DataSet_x=[]
 DataSet_F1=[]
 DataSet_F2=[]
@@ -57,7 +57,7 @@ for runIdx in range(0,NrSamples):
     x = 2*np.round(np.random.rand(K,1))-1;
     h_prime=np.transpose(H)
     #print(x.shape)
-    noise = (Sigma2/2.0)**(1/2.0)*np.random.randn(N,1) ######### NOT SURE JUGAAD H
+    noise = (Sigma2/2.0)**(1/2.0)*np.random.randn(N,1) 
     y = np.matmul(H,x) + noise
     c=c+1
     DataSet_x.append(x)
@@ -96,7 +96,7 @@ for runIdx in range(0,NrSamples_ToTest):
     x = 2*np.round(np.random.rand(K,1))-1;
     h_prime=np.transpose(H)
     #print(x.shape)
-    noise = (Sigma2/2.0)**(1/2.0)*np.random.randn(N,1) ######### NOT SURE JUGAAD H
+    noise = (Sigma2/2.0)**(1/2.0)*np.random.randn(N,1)
     y = np.matmul(H,x) + noise
     c=c+1
     TestSet_x.append(x)
@@ -200,11 +200,10 @@ def model(x_f,f1_f,f2_f):
             temp_loss=temp_loss+loss_k
 		    #temp_loss=temp_loss/L
         loss_2=loss_2+temp_loss
-			############ SARI LAYERS KA Combined LOSS ########################
+			############ Combined Loss of all layers ########################
     return loss_2,pred
 
 
-			#loss=(loss)/(len(DataSet)) ############ NOT SURE YE KRNA H YA NAHI #################
 print("model")
 loss_, out=model(X,F1,F2)
 loss=loss_/batch_size
@@ -227,7 +226,7 @@ print(sess.run(tf.report_uninitialized_variables(list_of_variables)))
 
 t=0
 with sess.as_default():
-                        ######################## PURA CHECK KRNA ESPECIALLY LOSS CALCULATION PART##############
+                      
     merged=tf.summary.merge_all()
     train_writer=tf.summary.FileWriter("train_loss_f",sess.graph)
     for epoch in range(100,4000):
